@@ -32,7 +32,19 @@ class tagsManager extends Controller
     return $ourTags;
     }
 
-    function returnResult(){
+    //Returns the posts with the tags
+    function returnPosts(){
+    $array =$this->user_tags();
+        //Finds and ads tags one by one during the iteration
+        $ourPosts= array();
+        $i=0;
+        foreach ($array as $tag){
+            $userTags = article_tags::where('tag_id',$tag)->pluck('post_id');
+            $ourPosts[$i]=$userTags->toArray();
+            $i++;
+
+        }
+        return $ourPosts;
 
 
     }
