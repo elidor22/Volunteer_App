@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\postsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\mails;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,8 @@ use App\Http\Controllers\UserController;
 Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
 
+Route::get('/mail','mails@sendEmailReminder');
+
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/posts/all', 'postsController@approved');
     Route::post('/posts/create','postsController@store');
@@ -32,5 +35,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     //Tags routes
     Route::get('/recommendations', 'tagsManager@returnPosts');
+
+
 
 });

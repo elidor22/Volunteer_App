@@ -8,6 +8,7 @@ use App\tags;
 use App\article_tags;
 use App\posts;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\mails;
 
 class tagsManager extends Controller
 {
@@ -57,6 +58,7 @@ class tagsManager extends Controller
             $finalResult[$j]=$posts->toArray();
             $j++;
         }
+
 
         //return $posts->toArray();
         return $finalResult;
