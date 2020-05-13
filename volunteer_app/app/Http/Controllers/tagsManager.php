@@ -23,10 +23,11 @@ class tagsManager extends Controller
     //Finds and ads tags one by one during the iteration
     foreach ($array as $tag){
     $tagsArray=tags::where('id',$tag)->pluck('id');
-    $ourTags[$i]=$tagsArray->toArray();
+    $ourTags[]=$tagsArray->toArray();
     $i++;
 
     }
+
 
     //Returns users favourite tags
     return $ourTags;
@@ -35,16 +36,33 @@ class tagsManager extends Controller
     //Returns the posts with the tags
     function returnPosts(){
     $array =$this->user_tags();
+        //Removes empy arrays from the 2d $array
+        $array = array_map('array_filter', $array);
+        $array = array_filter($array);
         //Finds and ads tags one by one during the iteration
         $ourPosts= array();
-        $i=0;
+        $i=1;
+
         foreach ($array as $tag){
-            $userTags = article_tags::where('tag_id',$tag)->pluck('post_id');
+            //Used $i as it throws an unknown PGSQL error if $tag is used
+            $userTags = article_tags::where('tag_id',$i)->pluck('post_id');
             $ourPosts[$i]=$userTags->toArray();
             $i++;
-
         }
-        return $ourPosts;
+        $iterArray = $ourPosts[1];
+        $finalResult = array();
+        $j =0;
+        foreach ($iterArray as $item) {
+            $posts = posts::where('post_id', $item)->get();
+            $finalResult[$j]=$posts->toArray();
+            $j++;
+        }
+
+        //return $posts->toArray();
+        return $finalResult;
+        //return $iterArray;
+        //return $ourPosts;
+        //return $array;
 
 
     }

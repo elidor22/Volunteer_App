@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class user_tags extends Model
 {
-    protected $hidden = ['user_id','tag_id'];
+    protected $hidden = ['user_idi','tag_id'];
 }
