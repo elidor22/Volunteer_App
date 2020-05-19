@@ -21,6 +21,7 @@ class CreateProfileTable extends Migration
             $table->string('username')->unique();
             $table->string('profile_photo_url');
             $table->boolean('isApproved');
+            $table->boolean('isAdmin');
             $table->timestamps();
         });
     }

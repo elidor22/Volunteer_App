@@ -13,7 +13,7 @@ class mails extends Controller
         //$user = Auth::user()->id;
         $data =array(['name'=>'test','version'=>'Development status']);
         Mail::send('welcome', $data, function ($message) {
-            $message->from('elidorv@outlook.com', 'Laravel')->to('elidor.varosi@cit.edu.al')->cc('elidorv@outlook.com')->subject('test');
+            $message->from('elidorv@outlook.com', 'Tytanyum')->to('elidor.varosi@cit.edu.al')->cc('elidorv@outlook.com')->subject('test');
         });
     }
 }

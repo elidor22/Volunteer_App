@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\postsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\mails;
+use App\Http\Controllers\adminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     //Profile routes
     Route::get('/profile', 'ProfileController@show');
     Route::post('/profile/create', 'ProfileController@create');
+
+    //Admin routes
+    Route::post('/admin/approve', 'adminController@approvePost');
 
     //Tags routes
     Route::get('/recommendations', 'tagsManager@returnPosts');

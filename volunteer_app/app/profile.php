@@ -8,5 +8,5 @@ class profile extends Model
 {
     protected $fillable = ['id','email','name','surname','username','profile_photo_url'];
 
-    protected $hidden = ['isApproved','created_at', 'updated_at'];
+    protected $hidden = ['isApproved','isAdmin','created_at', 'updated_at'];
 }
