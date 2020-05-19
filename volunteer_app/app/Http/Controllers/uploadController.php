@@ -9,11 +9,11 @@ class uploadController extends Controller
 {
     public function store(Request $request)
     {
-        $extension = $request->file('uploaded_file')->extension();
-        $mimeType = $request->file('uploaded_file')->getMimeType();
-        $path = Storage::putFileAs('uploads', $request->file('uploaded_file'), time().'.'.$extension, 'public');
+        $file = $request->photo;
 
-        ddd($extension,$mimeType,$path);
+        if ($request->hasFile('photo')) {
+            return 201;
+        }
         return 'success';
     }
 }
