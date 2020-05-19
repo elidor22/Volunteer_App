@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class adminController extends Controller
 {
+    //Can either set the post approved or not depending on the request
     function approvePost(Request $request){
         $user_id =Auth::user()->id;
         $isAdmin = profile::where('id',$user_id)->value('isAdmin');
@@ -18,12 +19,34 @@ class adminController extends Controller
                 'id' => 'required|integer',
                 'isApproved'=>'required|boolean',
             ]);
-            $title=$request->id;
+            $id=$request->id;
 
             //Find if the conditions are met then updates the information
 
-            posts::where('id', $title)
+            posts::where('id', $id)
                 ->update($post);
+            return 200;
+
+        }
+        else
+            return 401;
+    }
+
+    function approveAccount(Request $request){
+        $user_id =Auth::user()->id;
+        $isAdmin = profile::where('id',$user_id)->value('isAdmin');
+
+        if($isAdmin){
+            //Validates that the request got an id and approval boolean
+            $user = $request->validate([
+                'id' => 'required|integer',
+                'isApproved'=>'required|boolean',
+            ]);
+
+            $id=$request->id;
+
+            //Updates the profile
+            profile::where('id', $id)->update($user);
             return 200;
 
         }

@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     //Admin routes
     Route::post('/admin/approve', 'adminController@approvePost');
+    Route::post('/admin/approve_user', 'adminController@approveAccount');
 
     //Tags routes
     Route::get('/recommendations', 'tagsManager@returnPosts');

@@ -33,7 +33,7 @@ class postsController extends Controller
         $aproval = $isApproved;
         if($aproval){
            $post->save();
-           return 200;
+           return 201;
         }elseif (!$aproval){
             return 403;
         }
