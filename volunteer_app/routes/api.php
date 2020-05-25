@@ -6,6 +6,7 @@ use App\Http\Controllers\postsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\mails;
 use App\Http\Controllers\adminController;
+use App\Http\Controllers\passwordReset;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,8 @@ Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
 
 Route::get('/mail','mails@sendEmailReminder');
+Route::post('/resetPassword','passwordReset@resetPassword');
+Route::post('/savePassword','passwordReset@savePassword');
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/posts/all', 'postsController@approved');
