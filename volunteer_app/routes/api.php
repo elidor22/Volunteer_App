@@ -24,7 +24,7 @@ Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
 
 Route::get('/mail','mails@sendEmailReminder');
-Route::post('/resetPassword','passwordReset@resetPassword');
+Route::post('/resetPassword','passwordReset@sendCode');
 Route::post('/savePassword','passwordReset@savePassword');
 
 Route::group(['middleware' => 'auth:api'], function(){

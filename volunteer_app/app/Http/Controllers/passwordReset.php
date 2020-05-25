@@ -9,28 +9,33 @@ use App\resetCode;
 use App\User;
 class passwordReset extends Controller
 {
-    function resetPassword(Request $request){
+    function sendCode(Request $request){
         $username = profile::where('email', $request->email)->value('name');
         $email = $request->email;
-        $code ='This is your reset code';
+        $code ='This is your code: ';
         //Just e placeholder code
-        $code.='fafadfadfdafaefrefcsadf';
-        $code.=$username;
+        $confirmationCode=$this->generateRandomString(99);
+        $code.=$confirmationCode;
         Mail::raw($code, function($message) use ($email, $request, $username) {
-            $message->to($email, 'Password reset')->subject
-            ('Password reset code');
+            $message->to($email, 'Confirmation code')->subject
+            ('Use this code to proceed with your request');
             $message->from('VolunteereApp@Tytanyum.com',$username);
         });
+        $reset = new resetCode([
+            'email'=>$email,
+            'code'=>$confirmationCode,
+        ]);
+        $reset->save();
         return 200;
 
     }
 
     function savePassword(Request $request){
-        $email = $request->email;
         $code = $request->code;
-        //Gets the code from the database
-        $realCode=resetCode::where('email', $request->email)->value('code');
+        //Gets the code from the database, always selects the latest code
+        $realCode=resetCode::where('email', $request->email)->latest()->value('code');
 
+        //Checks if the right code was entered
         if($code==$realCode){
             $password = $request->validate([
                 'password'=> 'required|string',]);
@@ -51,6 +56,25 @@ class passwordReset extends Controller
         }
         else
             return 401;
+
+
+    }
+
+    //Generates a random string to be used as a verification code
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+
+    }
+
+    //TODO: Complete confirm email
+    function confirmEmail(Request $request){
+    $email = $request->email;
 
 
     }
