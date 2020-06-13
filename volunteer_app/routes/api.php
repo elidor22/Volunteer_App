@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\mails;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\passwordReset;
+use App\Http\Controllers\user_feed;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('/upload', 'uploadController@store');
 
     //Tags routes
-    Route::get('/recommendations', 'tagsManager@returnPosts');
+    Route::get('/recommendations', 'user_feed@return_posts');
 
 
 

@@ -22,7 +22,7 @@ class adminController extends Controller
             $id=$request->id;
 
             //Find if the conditions are met then updates the information
-
+            //Can approve or disapprove the post
             posts::where('id', $id)
                 ->update($post);
             return 200;

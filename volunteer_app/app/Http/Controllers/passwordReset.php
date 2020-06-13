@@ -14,7 +14,7 @@ class passwordReset extends Controller
         $email = $request->email;
         $code ='This is your code: ';
         //Just e placeholder code
-        $confirmationCode=$this->generateRandomString(99);
+        $confirmationCode=$this->generateRandomString(6);
         $code.=$confirmationCode;
         Mail::raw($code, function($message) use ($email, $request, $username) {
             $message->to($email, 'Confirmation code')->subject
