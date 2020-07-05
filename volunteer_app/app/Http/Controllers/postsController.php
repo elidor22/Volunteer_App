@@ -17,6 +17,14 @@ class postsController extends Controller
         return $posts;
     }
 
+    function pendingApproval(){
+        //Finds approved posts where the boolean is true, so has the value of 1, use 0 for not approved posts
+        $posts = posts::where('isApproved', 0)->where('pendingApproval',1)->get();
+        //$posts = posts::all();
+        return $posts;
+
+    }
+
     public function store(Request $request)
     {
         $user_id =Auth::user()->id;

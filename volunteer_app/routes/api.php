@@ -30,6 +30,7 @@ Route::post('/savePassword','passwordReset@savePassword');
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/posts/all', 'postsController@approved');
+    Route::get('/posts/pending', 'postsController@pendingApproval');
     Route::post('/posts/create','postsController@store');
     Route::put('/posts/update','postsController@update');
     Route::delete("/posts/delete",'postsController@delete');
