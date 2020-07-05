@@ -17,10 +17,42 @@ class postsController extends Controller
         return $posts;
     }
 
+    //In process posts
     function pendingApproval(){
         //Finds approved posts where the boolean is true, so has the value of 1, use 0 for not approved posts
         $posts = posts::where('isApproved', 0)->where('pendingApproval',1)->get();
-        //$posts = posts::all();
+
+        $user_id =Auth::user()->id;
+        $isAdmin = profile::where('id',$user_id)->value('isAdmin');
+        $userPosts = posts::where('post_id', auth()->user()->id)->get();
+        $isApproved =profile::where('id', auth()->user()->id)->value('isApproved');
+        //Returns the unapproved posts only to admins that have the permission to see the new unchecked posts
+        if($isAdmin){
+        return $posts;
+        }
+        //If the user is approved to post than he/she can track the approvals tatus
+        elseif ($isApproved){
+
+            return $userPosts;
+        }
+        else{
+            return 403;
+        }
+
+    }
+
+    function declined(){
+        //Finds approved posts where the boolean is true, so has the value of 1, use 0 for not approved posts
+        $posts = posts::where('isApproved', 0)->where('post_id', auth()->user()->id)->where('pendingApproval',0)->get();
+        return $posts;
+
+    }
+
+    function acceptedPost(){
+        //Returns all accepted posts for the user
+        $posts = posts::where('isApproved', 1)
+            ->where('post_id', auth()->user()->id)->where('pendingApproval',0)->get();
+
         return $posts;
 
     }
