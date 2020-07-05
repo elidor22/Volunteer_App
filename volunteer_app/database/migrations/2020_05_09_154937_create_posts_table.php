@@ -18,8 +18,9 @@ class CreatePostsTable extends Migration
             $table->bigInteger('post_id');
             $table->string('title');
             $table->text('post');
-            $table->boolean('isApproved');
+            $table->boolean('isApproved')->default(false);
             $table->string('cover_url');
+            $table->boolean('pendingApproval')->default(true);
 
             $table->timestamps();
         });
