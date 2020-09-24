@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 //TODO:Implement approval check for every route
 class postsController extends Controller
 {
+
+
     function approved(){
         //Finds approved posts where the boolean is true, so has the value of 1, use 0 for not approved posts
         $posts = posts::where('isApproved', 1)->get();
@@ -52,6 +54,7 @@ class postsController extends Controller
         //Returns all accepted posts for the user
         $posts = posts::where('isApproved', 1)
             ->where('post_id', auth()->user()->id)->where('pendingApproval',0)->get();
+
 
         return $posts;
 
@@ -113,6 +116,19 @@ class postsController extends Controller
         $post->delete();
 
         return "Deleted";
+    }
+
+
+    public function getById($id){
+        $post = posts::where('id',$id)->get();
+
+        if($post->isEmpty()){
+            return 404;
+        }
+        else{
+            return $post;
+        }
+
     }
 
 

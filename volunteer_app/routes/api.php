@@ -30,6 +30,7 @@ Route::post('/savePassword','passwordReset@savePassword');
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/posts/all', 'postsController@approved');
+    Route::get('/posts/{id}', 'postsController@getById');
     Route::get('/posts/accepted', 'postsController@acceptedPost');
     Route::get('/posts/pending', 'postsController@pendingApproval');
     Route::get('/posts/declined', 'postsController@declined');
