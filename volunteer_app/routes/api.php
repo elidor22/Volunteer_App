@@ -8,6 +8,7 @@ use App\Http\Controllers\mails;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\passwordReset;
 use App\Http\Controllers\user_feed;
+use App\Http\Controllers\contactMeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,7 @@ use App\Http\Controllers\user_feed;
 |
 */
 
+Route::post('/contact', 'contactMeController@contactMe');
 
 Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
@@ -42,6 +44,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/profile', 'ProfileController@show');
     Route::get('/profile/posts', 'ProfileController@showPosts');
     Route::post('/profile/create', 'ProfileController@create');
+
+    //Contact me routes
+    Route::get('/contact/all', 'contactMeController@all');
 
     //Admin routes
     Route::post('/admin/approve', 'adminController@approvePost');
