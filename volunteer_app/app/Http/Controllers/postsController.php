@@ -71,6 +71,7 @@ class postsController extends Controller
             'title' => $request->title,
             'post' => $request->post,
             'cover_url'=>$request->cover_url,
+            'header'=>$request->header,
         ]);
 
         //Checks if the user has the permission to create posts or not

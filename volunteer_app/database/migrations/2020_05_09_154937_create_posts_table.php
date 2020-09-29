@@ -17,6 +17,7 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('post_id');
             $table->string('title');
+            $table->string('header');
             $table->text('post');
             $table->boolean('isApproved')->default(false);
             $table->string('cover_url');
