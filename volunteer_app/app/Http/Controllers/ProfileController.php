@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\profile;
+use App\posts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,6 +51,15 @@ class ProfileController extends Controller
     $profile = profile::where('id', Auth::user()->id)->get();
 
     return $profile;
+    }
+    //Returns posts of the logged in user
+    public function showPosts(Request $request)
+    {
+        $user_id =auth()->user()->id;
+        $posts = posts::where('post_id', auth()->user()->id)->get();
+
+        return $posts;
+
     }
 
     /**

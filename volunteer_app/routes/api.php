@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     //Profile routes
     Route::get('/profile', 'ProfileController@show');
+    Route::get('/profile/posts', 'ProfileController@showPosts');
     Route::post('/profile/create', 'ProfileController@create');
 
     //Admin routes

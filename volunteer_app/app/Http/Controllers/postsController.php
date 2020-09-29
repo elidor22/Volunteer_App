@@ -60,6 +60,7 @@ class postsController extends Controller
 
     }
 
+
     public function store(Request $request)
     {
         $user_id =Auth::user()->id;
